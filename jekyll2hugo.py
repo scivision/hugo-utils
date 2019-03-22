@@ -84,6 +84,11 @@ def post2hugo(jfn: Path, outdir: Path, fixchar: bool = True) -> Optional[Path]:
                     f.write(f'- {v}\n')
                 continue
 
+            if key == 'redirect_from':
+                f.write('aliases:\n')
+                for v in ydict[key].split(' '):
+                    f.write(f'- {v}\n')
+
             if key == 'published' and ydict[key] == 'false':
                 f.write('draft: true')
                 continue
