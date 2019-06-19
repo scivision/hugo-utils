@@ -45,7 +45,7 @@ def post2hugo(jfn: Path, outdir: Path, fixchar: bool) -> Path:
         logging.error(f'unexpected formatting-not converted: {jfn}')
         return None
 
-    jekyll_meta = yaml.load(mat.groups()[0])
+    jekyll_meta = yaml.load(mat.groups()[0], Loader=yaml.BaseLoader)
 
     if 'date' not in jekyll_meta:
         postdate = datetime.strptime(jfn.name[:10], '%Y-%m-%d')
