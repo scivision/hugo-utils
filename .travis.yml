@@ -8,12 +8,12 @@ git:
 python:
 - 3.6
 
-install: pip install -e .[tests,cov]
+install: pip install -e .[tests,lint]
 
 script:
 - flake8
 - mypy .
-- pytest -s
+- pytest -r a -v
 
 after_success:
 - pytest --cov
