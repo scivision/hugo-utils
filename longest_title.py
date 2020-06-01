@@ -36,7 +36,7 @@ def main():
         title = hugoutils.get_header(f)[0]["title"]
         if len(title) > p.n:
             print((f.name, title))
-            if exe:
+            if p.c:
                 subprocess.run([exe, str(f)])
 
 
