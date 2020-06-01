@@ -5,16 +5,9 @@ git:
   depth: 25
   quiet: true
 
-python:
-- 3.6
-
 install: pip install -e .[tests,lint]
 
 script:
 - flake8
 - mypy .
-- pytest -r a -v
-
-after_success:
-- pytest --cov
-- coveralls
+- pytest

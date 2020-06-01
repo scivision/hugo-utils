@@ -9,12 +9,12 @@ R = Path(__file__).parent
 
 def test_convert(tmp_path):
 
-    for file in R.glob('*.md'):
+    for file in R.glob("*.md"):
         new = hugoutils.post2hugo(file, tmp_path, True)
-        assert ' ' not in new.name
-        print('\n', new.name)
+        assert " " not in new.name
+        print("\n", new.name)
         print(new.read_text())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     pytest.main([__file__])
