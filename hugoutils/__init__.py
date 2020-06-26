@@ -42,10 +42,6 @@ def post2hugo(jfn: Path, outdir: Path, fixchar: bool) -> Path:
 
     write_header(hugo, jekyll_header, fixchar)
 
-    # %% body
-    if fixchar:
-        body = body.replace("```", "\n```")
-
     with hugo.open("a") as f:
         f.write(body)
 

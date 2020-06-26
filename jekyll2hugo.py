@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """
 convert Jekyll posts to Hugo posts, using Python >= 3.6
 
