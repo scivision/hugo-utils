@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Find singleton (orphan) tags
+Find singleton (orphan) categories
 
-    python orphan_tags.py ~/myHugoSite/content/blog tags.xlsx
+    python orphan_categories.py ~/myHugoSite/content/blog cats.xlsx
 """
 
 import logging
@@ -33,7 +33,7 @@ def main():
     for f in files:
         header = hugoutils.get_header(f)[0]
         try:
-            tags = header["tags"]
+            tags = header["categories"]
         except KeyError:
             continue
         except Exception as e:
