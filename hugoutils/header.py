@@ -7,26 +7,26 @@ import logging
 import yaml
 
 
-def get_header(jfn: Path) -> T.Tuple[T.Dict[str, str], str]:
+def get_header(fn: Path) -> T.Tuple[T.Dict[str, str], str]:
 
     pat = re.compile(r"^-{3}\s*\n([\S\s]+?)\n-{3}\s*\n([\S\s]+)")
 
-    raw = jfn.read_text(errors="ignore")
+    raw = fn.read_text(errors="ignore")
 
     mat = pat.search(raw)
     if not mat:
         return (None, None)
 
-    jekyll_header = yaml.load(mat.groups()[0], Loader=yaml.BaseLoader)
+    header = yaml.load(mat.group(1), Loader=yaml.BaseLoader)
 
-    if "date" not in jekyll_header:
+    if "date" not in header:
         try:
-            postdate = datetime.strptime(jfn.name[:10], "%Y-%m-%d")
-            jekyll_header["date"] = postdate.strftime("%Y-%m-%d")
+            postdate = datetime.strptime(fn.name[:10], "%Y-%m-%d")
+            header["date"] = postdate.strftime("%Y-%m-%d")
         except ValueError:
             pass
 
-    return jekyll_header, mat.groups()[1]
+    return header, mat.group(2)
 
 
 def write_header(fn: Path, meta: T.Dict[str, str], fixchar: bool):
