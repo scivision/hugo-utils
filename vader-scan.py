@@ -25,15 +25,19 @@ def cli():
     p.add_argument("blogpath", help="directory of Markdown posts to analyze")
     p.add_argument("xlsfile", help="path of .xlsx file to write")
     p.add_argument("--only", help="part of page to analyze", choices=["title", "description"])
+    p.add_argument("-ext", help="filename suffix", default=".md")
     P = p.parse_args()
 
     blog_path = Path(P.blogpath).expanduser()
     xlsx = Path(P.xlsfile).expanduser()
+    xlsx.parent.mkdir(parents=True, exist_ok=True)
 
     if blog_path.is_file():
         files = [blog_path]
+    elif blog_path.is_dir():
+        files = list(blog_path.rglob(f"*{P.ext}"))
     else:
-        files = list(blog_path.glob("*.md"))
+        raise NotADirectoryError(blog_path)
 
     cols = ["pos", "neu", "neg", "compound"]
     if P.only:

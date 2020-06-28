@@ -30,7 +30,7 @@ def main():
     outdir = Path(p.out_dir).expanduser()
     outdir.mkdir(parents=True, exist_ok=True)
 
-    jlist = inpath.glob("**/*.md")
+    jlist = inpath.rglob("*.md")
     for jfn in jlist:
         hfn = hugoutils.post2hugo(jfn, outdir, not p.nofix)
         if p.verbose and hfn:

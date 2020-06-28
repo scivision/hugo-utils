@@ -22,7 +22,7 @@ def main():
     if not inpath.is_dir():
         raise NotADirectoryError(inpath)
 
-    by_len = sorted((f.name for f in inpath.glob(f"**/*{p.ext}") if len(f.stem) > p.n), key=len)[::-1]
+    by_len = sorted((f.name for f in inpath.rglob(f"*{p.ext}") if len(f.stem) > p.n), key=len)[::-1]
     for f in by_len:
         print(f)
 

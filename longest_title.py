@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-list N files from longest title to shorted
+list N files from longest title to shortest
 
 python longest_title.py ~/myHugoSite/content/blog
 
@@ -32,7 +32,7 @@ def main():
         if not exe:
             raise FileNotFoundError(f"{p.c} not found")
 
-    for f in inpath.glob(f"**/*{p.ext}"):
+    for f in inpath.rglob(f"*{p.ext}"):
         title = hugoutils.get_header(f)[0]["title"]
         if len(title) > p.n:
             print((f.name, title))
