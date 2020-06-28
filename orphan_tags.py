@@ -5,6 +5,7 @@ Find singleton (orphan) tags
     python orphan_tags.py ~/myHugoSite/content/blog
 """
 
+import logging
 import argparse
 from pathlib import Path
 import pandas
@@ -35,6 +36,8 @@ def main():
             tags = header["tags"]
         except KeyError:
             continue
+        except Exception as e:
+            logging.error(f"{e}: {f.stem}")
 
         for tag in tags:
             try:
