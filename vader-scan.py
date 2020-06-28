@@ -12,7 +12,7 @@ import pandas
 import logging
 
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-import hugoutils.header
+import hugoutils
 
 
 def analyze_post(text: str) -> T.Dict[str, float]:
@@ -49,7 +49,7 @@ def cli():
         print(f"{i+1} / {len(files)} {file.stem:<80}", end="\r")
 
         if P.only:
-            header = hugoutils.header.get_header(file)[0]
+            header = hugoutils.get_header(file)[0]
             try:
                 text = header[P.only]
             except KeyError:

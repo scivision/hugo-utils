@@ -1,10 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """
 list N files from longest title to shortest
 
-python longest_title.py ~/myHugoSite/content/blog
-
-Michael Hirsch, Ph.D.
+    python longest_title.py ~/myHugoSite/content/blog
 """
 
 import argparse

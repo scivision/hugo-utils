@@ -6,9 +6,7 @@ This is since `hugo import jekyll` just seems broken, even for Hugo 0.54
 
 Usage example:
 
-python jekyll2hugo.py ~/myJekyllSite/_posts ~/myHugoSite/content/blog
-
-Michael Hirsch, Ph.D.
+    python jekyll2hugo.py ~/myJekyllSite/_posts ~/myHugoSite/content/blog
 """
 from argparse import ArgumentParser
 from pathlib import Path

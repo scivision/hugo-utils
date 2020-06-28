@@ -1,10 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """
-list N files from longest filename (longest URL) to shorted
+list N files from longest filename (longest URL) to shortest
 
-python longest_filename.py ~/myHugoSite/content/blog
-
-Michael Hirsch, Ph.D.
+    python longest_filename.py ~/myHugoSite/content/blog
 """
 
 import argparse
