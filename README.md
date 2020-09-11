@@ -9,7 +9,7 @@ and maintaining Hugo sites.
 ## Convert Jekyll blog to Hugo
 
 ```sh
-python jekyll2hugo.py -h
+jekyll2hugo -h
 ```
 
 ## List filenames sorted from longest to shortest

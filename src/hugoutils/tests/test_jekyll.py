@@ -1,20 +1,12 @@
-#!/usr/bin/env python3
-import pytest
 from pathlib import Path
 
 import hugoutils
 
-R = Path(__file__).parent
 
+def test_convert(gen_file: Path, tmp_path: Path):
 
-def test_convert(tmp_path):
-
-    for file in R.glob("*.md"):
+    for file in gen_file.glob("*.md"):
         new = hugoutils.post2hugo(file, tmp_path, True)
         assert " " not in new.name
         print("\n", new.name)
         print(new.read_text())
-
-
-if __name__ == "__main__":
-    pytest.main([__file__])

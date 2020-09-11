@@ -1,6 +1,5 @@
-#!/usr/bin/env python3
 """
-convert Jekyll posts to Hugo posts, using Python >= 3.6
+convert Jekyll posts to Hugo posts
 
 This is since `hugo import jekyll` just seems broken, even for Hugo 0.54
 
@@ -13,11 +12,13 @@ from pathlib import Path
 import hugoutils
 
 
-def main():
+def cli():
     p = ArgumentParser()
     p.add_argument("jekyll_posts_dir", help="path to Jekyll _posts directory")
     p.add_argument("out_dir", help="directory to write converted Hugo posts")
-    p.add_argument("-nofix", help="do not fix bad characters (Hugo might fail)", action="store_true")
+    p.add_argument(
+        "-nofix", help="do not fix bad characters (Hugo might fail)", action="store_true"
+    )
     p.add_argument("-v", "--verbose", action="store_true")
     p = p.parse_args()
 
@@ -33,7 +34,3 @@ def main():
         hfn = hugoutils.post2hugo(jfn, outdir, not p.nofix)
         if p.verbose and hfn:
             print(jfn, "=>", hfn)
-
-
-if __name__ == "__main__":
-    main()
