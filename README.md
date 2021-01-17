@@ -1,6 +1,6 @@
 # Hugo Utils
 
-[![Build Status](https://travis-ci.com/scivision/hugo-utils.svg?branch=master)](https://travis-ci.com/scivision/hugo-utils)
+![ci](https://github.com/scivision/hugo-utils/workflows/ci/badge.svg)
 
 Utility scripts for
 [converting from Jekyll to Hugo](https://www.scivision.dev/switch-jekyll-to-hugo/)
