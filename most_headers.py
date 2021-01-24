@@ -15,7 +15,12 @@ from pathlib import Path
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("path", help="path to search")
-    p.add_argument("-n", help="show pages with more than  N headers", type=int, default=5)
+    p.add_argument(
+        "-n",
+        help="show pages with more than N headers / file size/80 less than",
+        type=int,
+        default=0.5,
+    )
     p.add_argument("-ext", help="filename suffix", default=".md")
     p.add_argument("-c", help="run program for this file", choices=["gedit", "notepad++", "code"])
     p = p.parse_args()
@@ -34,10 +39,13 @@ def main():
     for f in inpath.rglob(f"*{p.ext}"):
         head_count = 0
         txt = f.read_text()
+        fsize = f.stat().st_size
+
         for pat in head_pats:
             head_count += len(re.findall(pat, txt))
-        if head_count > p.n:
-            print((f.name, head_count))
+
+        if (head_count / (fsize / 80)) > p.n:
+            print((f.name, head_count, head_count / fsize))
             if exe:
                 subprocess.run([exe, str(f)])
 
