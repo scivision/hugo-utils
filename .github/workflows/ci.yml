@@ -10,14 +10,11 @@ jobs:
 
   linux:
     runs-on: windows-latest
-    strategy:
-      matrix:
-        python-version: [3.x]
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: '3.x'
 
     - run: pip install .[tests,lint]
 
