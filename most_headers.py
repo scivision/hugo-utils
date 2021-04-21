@@ -18,7 +18,7 @@ def main():
     p.add_argument(
         "-n",
         help="show pages with more than N headers / file size/80 less than",
-        type=int,
+        type=float,
         default=0.5,
     )
     p.add_argument("-ext", help="filename suffix", default=".md")
