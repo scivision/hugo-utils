@@ -17,7 +17,6 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("path", help="path to read Markdown blog files")
     p.add_argument("xlsx", help="excel filename to write")
-    p.add_argument("-n", help="show titles of more than N characters", type=int, default=60)
     p.add_argument("-ext", help="filename suffix", default=".md")
     p = p.parse_args()
 
