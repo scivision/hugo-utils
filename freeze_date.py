@@ -36,7 +36,7 @@ before = datetime.strptime(p.before, "%Y-%m-%d") if p.before else None
 
 for f in path.glob(f"*{p.ext}"):
     head = hugoutils.get_header(f)[0]
-    if "dateModified" in head:
+    if head is None or "dateModified" in head:
         continue
 
     create_date = datetime.strptime(head["date"][:10], "%Y-%m-%d")

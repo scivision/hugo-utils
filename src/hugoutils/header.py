@@ -1,5 +1,5 @@
+from __future__ import annotations
 from pathlib import Path
-import typing as T
 import re
 from datetime import date, datetime
 import logging
@@ -7,7 +7,10 @@ import logging
 import yaml
 
 
-def get_header(fn: Path) -> T.Tuple[T.Dict[str, str], str]:
+def get_header(fn: Path) -> tuple[dict[str, str], str]:
+
+    if not fn.is_file():
+        raise FileNotFoundError(fn)
 
     pat = re.compile(r"^-{3}\s*\n([\S\s]+?)\n-{3}\s*\n([\S\s]+)")
 
@@ -29,7 +32,7 @@ def get_header(fn: Path) -> T.Tuple[T.Dict[str, str], str]:
     return header, mat.group(2)
 
 
-def write_header(fn: Path, meta: T.Dict[str, str], fixchar: bool):
+def write_header(fn: Path, meta: dict[str, str], fixchar: bool):
     """
     Parameters
     ----------

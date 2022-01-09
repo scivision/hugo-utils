@@ -25,7 +25,7 @@ def get_tags(path: Path, taxonomy_type: str) -> set[str]:
         header = hugoutils.get_header(f)[0]
         try:
             tags = header[taxonomy_type]
-        except KeyError:
+        except (TypeError, KeyError):
             continue
 
         for tag in tags:

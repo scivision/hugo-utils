@@ -30,7 +30,11 @@ if p.c:
         raise FileNotFoundError(f"{p.c} not found")
 
 for f in inpath.rglob(f"*{p.ext}"):
-    title = hugoutils.get_header(f)[0]["title"]
+    try:
+        title = hugoutils.get_header(f)[0]["title"]
+    except (TypeError, KeyError):
+        continue
+
     if len(title) > p.n:
         print((f.name, title))
         if p.c:

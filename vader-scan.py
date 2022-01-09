@@ -52,6 +52,8 @@ def cli():
             header = hugoutils.get_header(file)[0]
             try:
                 text = header[P.only]
+            except TypeError:
+                continue
             except KeyError:
                 logging.error(f"{file.stem} does not have {P.only}")
                 continue

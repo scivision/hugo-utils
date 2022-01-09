@@ -27,9 +27,9 @@ if not path.is_dir():
 before = datetime.strptime(p.before, "%Y-%m-%d")
 expired = datetime.strptime(p.expire_date, "%Y-%m-%d")
 
-for f in path.glob(f"*{p.ext}"):
+for f in path.rglob(f"*{p.ext}"):
     head = hugoutils.get_header(f)[0]
-    if "expiryDate" in head:
+    if head is None or "expiryDate" in head:
         continue
 
     create_date = datetime.strptime(head["date"][:10], "%Y-%m-%d")

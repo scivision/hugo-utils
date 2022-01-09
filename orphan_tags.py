@@ -33,7 +33,7 @@ for f in files:
     header = hugoutils.get_header(f)[0]
     try:
         tags = header["tags"]
-    except KeyError:
+    except (TypeError, KeyError):
         continue
     except Exception as e:
         logging.error(f"{e}: {f.stem}")
