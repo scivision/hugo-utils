@@ -34,24 +34,18 @@ def get_tags(path: Path, taxonomy_type: str) -> set[str]:
     return dat
 
 
-def main():
-    p = argparse.ArgumentParser(description="generate _index.md for taxonomies")
-    p.add_argument("path", help="Hugo content path e.g. ~/site/content")
-    p.add_argument("taxonomy_type", help="tags categories or similar")
-    p.add_argument("-noindex", help="add noindex,noarchive meta to tag", action="store_true")
-    p = p.parse_args()
-
-    inpath = Path(p.path).expanduser()
+def create_tag_index(path: Path, taxonomy_type: str, noindex: bool) -> None:
+    inpath = Path(path).expanduser()
     if not inpath.is_dir():
         raise NotADirectoryError(inpath)
 
-    tags = get_tags(inpath, p.taxonomy_type)
+    tags = get_tags(inpath, taxonomy_type)
 
     i = inpath.parts[::-1].index("content") - 1
     tag_root = inpath if i < 0 else inpath.parents[i]
 
     for tag in tags:
-        res_index = tag_root / p.taxonomy_type / tag / "_index.md"
+        res_index = tag_root / taxonomy_type / tag / "_index.md"
         if res_index.is_file():
             continue
 
@@ -59,10 +53,10 @@ def main():
 
         hdr = f"""---
 title: {tag}
-description: {tag} {p.taxonomy_type} taxonomy
+description: {tag} {taxonomy_type} taxonomy
 """
 
-        if p.noindex:
+        if noindex:
             hdr += "noindex: true\n"
         hdr += "---\n"
 
@@ -71,4 +65,10 @@ description: {tag} {p.taxonomy_type} taxonomy
 
 
 if __name__ == "__main__":
-    main()
+    p = argparse.ArgumentParser(description="generate _index.md for taxonomies")
+    p.add_argument("path", help="Hugo content path e.g. ~/site/content")
+    p.add_argument("taxonomy_type", help="tags categories or similar")
+    p.add_argument("-noindex", help="add noindex,noarchive meta to tag", action="store_true")
+    p = p.parse_args()
+
+    create_tag_index(p.path, p.taxonomy_type, p.noindex)
