@@ -10,6 +10,7 @@ import argparse
 import typing as T
 import pandas
 import logging
+import datetime
 
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import hugoutils
@@ -45,11 +46,18 @@ def cli():
 
     dat = pandas.DataFrame(index=[f.stem for f in files], columns=cols)
 
+    now = datetime.datetime.now()
+
     for i, file in enumerate(files):
         print(f"{i+1} / {len(files)} {file.stem:<80}", end="\r")
 
+        header = hugoutils.get_header(file)[0]
+        if header is not None and "expiryDate" in header:
+            if datetime.datetime.strptime(header["expiryDate"][:10], "%Y-%m-%d") < now:
+                print("skip", file)
+                continue
+
         if P.only:
-            header = hugoutils.get_header(file)[0]
             try:
                 text = header[P.only]
             except TypeError:
