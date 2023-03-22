@@ -10,7 +10,7 @@ import subprocess
 import shutil
 from pathlib import Path
 
-import hugoutils
+import hugomd
 
 
 p = argparse.ArgumentParser()
@@ -31,7 +31,7 @@ if p.c:
 
 for f in inpath.rglob(f"*{p.ext}"):
     try:
-        title = hugoutils.get_header(f)[0]["title"]
+        title = hugomd.get_header(f)[0]["title"]
     except (TypeError, KeyError):
         continue
 

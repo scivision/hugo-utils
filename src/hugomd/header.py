@@ -32,7 +32,7 @@ def get_header(fn: Path) -> tuple[dict[str, str], str]:
     return header, mat.group(2)
 
 
-def write_header(fn: Path, meta: dict[str, str], fixchar: bool):
+def write_header(fn: Path, meta: dict[str, str], fixchar: bool) -> None:
     """
     Parameters
     ----------

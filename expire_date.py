@@ -10,7 +10,7 @@ import argparse
 from pathlib import Path
 from datetime import datetime
 
-import hugoutils
+import hugomd
 
 
 p = argparse.ArgumentParser()
@@ -28,7 +28,7 @@ before = datetime.strptime(p.before, "%Y-%m-%d")
 expired = datetime.strptime(p.expire_date, "%Y-%m-%d")
 
 for f in path.rglob(f"*{p.ext}"):
-    head = hugoutils.get_header(f)[0]
+    head = hugomd.get_header(f)[0]
     if head is None or "expiryDate" in head:
         continue
 

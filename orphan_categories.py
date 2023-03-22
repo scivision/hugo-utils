@@ -11,7 +11,7 @@ import argparse
 from pathlib import Path
 import pandas
 
-import hugoutils
+import hugomd
 
 
 p = argparse.ArgumentParser()
@@ -30,7 +30,7 @@ files = list(inpath.rglob(f"*{p.ext}"))
 dat: dict[str, int] = {}
 
 for f in files:
-    header = hugoutils.get_header(f)[0]
+    header = hugomd.get_header(f)[0]
     try:
         tags = header["categories"]
     except (TypeError, KeyError):

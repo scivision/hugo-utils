@@ -3,6 +3,8 @@ import logging
 
 from .header import get_header, write_header
 
+__version__ = "1.2.2"
+
 
 def post2hugo(jfn: Path, outdir: Path, fixchar: bool) -> Path:
     """

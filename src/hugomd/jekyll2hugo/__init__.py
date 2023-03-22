@@ -9,7 +9,7 @@ Usage example:
 """
 from argparse import ArgumentParser
 from pathlib import Path
-import hugoutils
+import hugomd
 
 
 p = ArgumentParser()
@@ -28,6 +28,6 @@ outdir.mkdir(parents=True, exist_ok=True)
 
 jlist = inpath.rglob("*.md")
 for jfn in jlist:
-    hfn = hugoutils.post2hugo(jfn, outdir, not p.nofix)
+    hfn = hugomd.post2hugo(jfn, outdir, not p.nofix)
     if p.verbose and hfn:
         print(jfn, "=>", hfn)

@@ -14,7 +14,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-import hugoutils
+import hugomd
 
 
 def get_tags(path: Path, taxonomy_type: str) -> set[str]:
@@ -22,7 +22,7 @@ def get_tags(path: Path, taxonomy_type: str) -> set[str]:
     dat: set[str] = set()
 
     for f in files:
-        header = hugoutils.get_header(f)[0]
+        header = hugomd.get_header(f)[0]
         try:
             tags = header[taxonomy_type]
         except (TypeError, KeyError):

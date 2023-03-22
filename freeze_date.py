@@ -19,7 +19,7 @@ import argparse
 from pathlib import Path
 from datetime import datetime
 
-import hugoutils
+import hugomd
 
 
 p = argparse.ArgumentParser()
@@ -35,7 +35,7 @@ if not path.is_dir():
 before = datetime.strptime(p.before, "%Y-%m-%d") if p.before else None
 
 for f in path.glob(f"*{p.ext}"):
-    head = hugoutils.get_header(f)[0]
+    head = hugomd.get_header(f)[0]
     if head is None or "dateModified" in head:
         continue
 

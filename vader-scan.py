@@ -13,7 +13,7 @@ import logging
 import datetime
 
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-import hugoutils
+import hugomd
 
 
 def analyze_post(text: str) -> T.Dict[str, float]:
@@ -51,7 +51,7 @@ def cli():
     for i, file in enumerate(files):
         print(f"{i+1} / {len(files)} {file.stem:<80}", end="\r")
 
-        header = hugoutils.get_header(file)[0]
+        header = hugomd.get_header(file)[0]
         if header is not None and "expiryDate" in header:
             if datetime.datetime.strptime(header["expiryDate"][:10], "%Y-%m-%d") < now:
                 print("skip", file)
