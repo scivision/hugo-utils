@@ -8,7 +8,6 @@ import yaml
 
 
 def get_header(fn: Path) -> tuple[dict[str, str], str]:
-
     if not fn.is_file():
         raise FileNotFoundError(fn)
 

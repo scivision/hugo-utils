@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Download Hugo release
+Download Hugo release, if newer exists
 """
 
 import sys
@@ -12,12 +12,29 @@ from pathlib import Path
 import tarfile
 import zipfile
 from io import BytesIO
+import shutil
+import subprocess
+import re
+from packaging import version
 
 p = argparse.ArgumentParser()
 p.add_argument("prefix", help="install prefix for Hugo")
 P = p.parse_args()
 
 prefix = Path(P.prefix).expanduser()
+
+exist_version = None
+hugo = shutil.which("hugo", path=prefix)
+if hugo:
+    out = subprocess.check_output([hugo, "version"], text=True)
+    exist_version = out.split()[1]
+    re.compile("$v([0-9.]+)")
+    mat = re.match(r"^v(\d+\.\d+\.\d+)", exist_version)
+    if mat:
+        exist_version = mat.group(1)
+    else:
+        exist_version = None
+
 prefix.mkdir(parents=True, exist_ok=True)
 
 api = "https://api.github.com/repos/gohugoio/hugo/releases/latest"
@@ -31,8 +48,12 @@ arch = platform.machine().lower()
 
 tag = data["tag_name"]
 
-print("latest Hugo release:", tag)
-
+print("latest Hugo release:", tag[1:])
+if exist_version:
+    print("existing Hugo version: ", exist_version)
+    if version.parse(exist_version) >= version.parse(tag[1:]):
+        print("No newer version available")
+        raise SystemExit
 # https://stackoverflow.com/questions/45125516/possible-values-for-uname-m
 match sys.platform:
     case "darwin":
