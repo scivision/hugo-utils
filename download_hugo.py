@@ -57,5 +57,5 @@ with urllib.request.urlopen(url) as f:
         with zipfile.ZipFile(BytesIO(f.read()), "r") as z:
             z.extractall(prefix)
     else:
-        with tarfile.open(f.read(), "r") as z:
+        with tarfile.open(fileobj=f, mode="r:gz") as z:
             z.extractall(prefix)
