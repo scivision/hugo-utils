@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+
+# /// pyproject
+# [run]
+# requires-python = ">=3.10"
+# ///
+
 """
 Download Hugo release, if newer exists
 """
@@ -24,16 +30,10 @@ P = p.parse_args()
 prefix = Path(P.prefix).expanduser()
 
 exist_version = None
-hugo = shutil.which("hugo", path=prefix)
-if hugo:
+if hugo := shutil.which("hugo", path=prefix):
     out = subprocess.check_output([hugo, "version"], text=True)
-    exist_version = out.split()[1]
-    re.compile("$v([0-9.]+)")
-    mat = re.match(r"^v(\d+\.\d+\.\d+)", exist_version)
-    if mat:
+    if mat := re.match(r"^v(\d+\.\d+\.\d+)", out.split()[1]):
         exist_version = mat.group(1)
-    else:
-        exist_version = None
 
 prefix.mkdir(parents=True, exist_ok=True)
 
